@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divakar's Portfolio</title>
+    <meta name="description" content="Portfolio of Diva, a student developer building for the web.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="web-canvas"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot" aria-hidden="true"></div>
+    <div id="cursor-ring" aria-hidden="true"></div>
+    <div id="cursor-ripple" aria-hidden="true"></div>
+
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">Divakar R</a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#hackathons" class="nav-link">Hackathons</a></li>
+                <li><a href="#certifications" class="nav-link">Certs</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="https://github.com/div007x" target="_blank" rel="noopener noreferrer" class="nav-icon-link" aria-label="GitHub profile"><i class="fab fa-github"></i></a></li>
+                <!-- <li><button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button></li> -->
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav Overlay -->
+    <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+
+    <!-- Hero -->
+    <section id="hero" class="section hero-section">
+        <div class="hero-content">
+            <p class="hero-greeting">Hello, I'm</p>
+            <h1 class="hero-name">Divakar R</h1>
+            <h2>    SOFTWARE DEVELOPMENT ENGINEER |
+                FULL-STACK WEB DEVELOPER |ASPIRING AI ENGINEER
+            </h2>
+            <p class="hero-role">I build <span id="role-text" class="role-highlight"></span><span class="typewriter-cursor">|</span></p>
+            <p class="hero-intro">I build scalable, practical software systems, real-world product delivery, and thoughtful full-stack implementation.</p>
+            <a href="#contact" class="cta-button">Let's Connect <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse"><div class="wheel"></div></div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <!-- TODO: replace with real content -->
+            <div class="about-content">
+                <p>I'm a second-year B.Tech Information Technology student passionate about Software Development, Data Structures & Algorithms, and Full-Stack Development. I enjoy building real-world projects, continuously learning modern technologies, and strengthening my problem-solving skills. Currently, I'm focused on creating impactful applications while preparing for Software Development Engineer (SDE) roles.</p>
+                <p> I enjoy transforming ideas into practical software solutions through clean, efficient, and scalable code. Whether I'm solving coding challenges, developing web applications, or exploring AI technologies, I strive to learn, improve, and build projects that create real-world value.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Skills -->
+    <section id="skills" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <!-- Languages -->
+                <div class="skill-card tilt-card">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3>Languages</h3>
+                    <!-- TODO: replace with real skills -->
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <!-- <span class="skill-tag"></span> -->
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">C</span>
+                    </div>
+                </div>
+                <!-- Core Concepts -->
+                <div class="skill-card tilt-card">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Core Concepts</h3>
+                    <!-- TODO: replace with real skills -->
+                    <div class="skill-tags">
+                        <span class="skill-tag">Object-Oriented Programming</span>
+                        <span class="skill-tag">Data Structures & Algorithms</span>
+                        <span class="skill-tag">Database Management Systems</span>
+                        <span class="skill-tag">Operating Systems</span>
+                        <!-- <span class="skill-tag">Computer Networks</span> -->
+                    </div>
+                </div>
+                <!-- Tools & Platforms -->
+                <div class="skill-card tilt-card">
+                    <div class="skill-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Tools & Platforms</h3>
+                    <!-- TODO: replace with real skills -->
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">GitHub</span>
+                        <span class="skill-tag">VS Code</span>
+                        <span class="skill-tag">Claude</span>
+                        <!-- <span class="skill-tag">Docker</span>  -->
+                        <!-- <span class="skill-tag">Figma</span> -->
+                    </div>
+                </div>
+                <!-- Frameworks & Libraries -->
+                <div class="skill-card tilt-card">
+                    <div class="skill-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Frameworks & Libraries</h3>
+                    <!-- TODO: replace with real skills -->
+                    <div class="skill-tags">
+                        <span class="skill-tag">Django</span>
+                        <span class="skill-tag">Tailwind CSS</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">NumPy</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- TODO: replace with real projects -->
+                <!-- <div class="project-card tilt-card">
+                    <div class="project-header">
+                        <i class="fas fa-folder-open project-folder"></i>
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"><i class="fab fa-github"></i></a>
+                            <a href="#" target="_blank" rel="noopener" aria-label="Live demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Aurora Web Portfolio</h3>
+                    <p class="project-desc">An interactive 3D portfolio featuring a spider-web background, custom cursor, and smooth scroll animations built with vanilla JS and Three.js.</p>
+                    <div class="project-tech">
+                        <span>Three.js</span>
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>Vanilla JS</span>
+                    </div>
+                </div> -->
+
+                <div class="project-card tilt-card">
+                    <div class="project-header">
+                        <i class="fas fa-folder-open project-folder"></i>
+                        <div class="project-links">
+                            <a href="https://github.com/div007x/Student-Management-System-using-Cpp" target="_blank" rel="noopener" aria-label="GitHub repo"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/div007x/Student-Management-System-using-Cpp" target="_blank" rel="noopener" aria-label="Live demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Console Based Student Management System</h3>
+                    <p class="project-desc">A Console Based Student Management System built using C++, helps me to understand and apply OOPs concepts.</p>
+                    <div class="project-tech">
+                        <span>C++</span>
+                        <span>OOPs</span>
+                        <span>File Handling</span>
+                    </div>
+                </div>
+
+                <!-- <div class="project-card tilt-card">
+                    <div class="project-header">
+                        <i class="fas fa-folder-open project-folder"></i>
+                        <div class="project-links">
+                            <a href="#" target="_blank" rel="noopener" aria-label="GitHub repo"><i class="fab fa-github"></i></a>
+                            <a href="#" target="_blank" rel="noopener" aria-label="Live demo"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">Weather Dashboard</h3>
+                    <p class="project-desc">A responsive weather dashboard that fetches real-time data, displays forecasts with interactive charts, and supports location search.</p>
+                    <div class="project-tech">
+                        <span>JavaScript</span>
+                        <span>REST API</span>
+                        <span>Chart.js</span>
+                        <span>CSS3</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+
+
+
+
+
+    <!-- <section id="education" class="section reveal">
+    <div class="container">
+
+        <h2 class="section-title">Education</h2>
+
+        <div class="education-card">
+
+            <h3>Bachelor of Technology — Information Technology, 2025–2029</h3>
+
+            <h4>Sri Krishna College of Engineering and Technology, Coimbatore</h4>
+
+            <p><strong>CGPA:</strong> 9.05 / 10.0</p>
+
+            <p>
+                <strong>Relevant Coursework:</strong>
+                Data Structures & Algorithms,
+                Object-Oriented Programming with C++,
+                Discrete Mathematics,
+                Computer Organization & Architecture,
+                Operating Systems,
+                Database Management Systems.
+            </p>
+
+        </div>
+
+    </div>
+</section>
+ -->
+
+
+    <section id="education" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025 — 2029</span>
+                        <h3>Bachelor of Technology in Information Technology</h3>
+                        <p class="timeline-institution">Sri Krishna College of Engineering and Technology, Coimbatore</p>
+                        <p class="timeline-gpa">SGPA: 9.2 / 10</p>
+                        <p class="timeline-coursework"><strong>Relevant Coursework:</strong> Data Structures & Algorithms, Operating Systems, Database Management, Web Technologies,Discrete Mathamatics, Computer Organization and Architecture</p>
+                    </div>
+                </div>
+                <!-- <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">2020 — 2022</span>
+                        <h3>Higher Secondary (12th Grade)</h3>
+                        <p class="timeline-institution">St. Mary's Higher Secondary School</p>
+                        <p class="timeline-gpa">Percentage: 92%</p>
+                        <p class="timeline-coursework"><strong>Stream:</strong> Science — Physics, Chemistry, Mathematics, Computer Science</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Achievements -->
+    <section id="achievements" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Achievements & 
+                Competitive Programming</h2>
+            <!-- TODO: replace with real achievements -->
+            <ul class="achievements-list">
+                <li class="achievement-item"><i class="fas fa-check-circle"></i>     Solved Data Structures and Algorithms problems on LeetCode, HackerRank, and other competitive platforms, covering arrays, linked lists, trees, graphs, dynamic programming, and sorting.
+</li>
+                <li class="achievement-item"><i class="fas fa-check-circle"></i> Competed in 2+ hackathons; gaining experience and solving real-world problems.</li>
+                <li class="achievement-item"><i class="fas fa-check-circle"></i> Open-source contributor</li>
+                <!-- <li class="achievement-item"><i class="fas fa-check-circle"></i> Speaker at Campus Tech Meetup 2024</li> -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- Hackathons -->
+    <section id="hackathons" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Hackathons and Tech Events</h2>
+            <p class="hackathon-subtitle">Events I've participated in</p>
+            <div class="hackathons-grid">
+                <!-- TODO: replace with real hackathon details — duplicate a card block to add more -->
+                <div class="hackathon-card tilt-card">
+                    <div class="hackathon-header">
+                        <i class="fas fa-trophy hackathon-icon"></i>
+                        <!-- <span class="hackathon-badge hackathon-badge-winner">PARTICIPANT</span> -->
+                    </div>
+                    <h3 class="hackathon-title">Yugam Codearhon 3.0</h3>
+                    <p class="hackathon-org">Organized by Kumaraguru Institute of Technology</p>
+                    <p class="hackathon-date"><i class="fas fa-calendar-alt"></i> March 2026</p>
+                    <p class="hackathon-desc">Built an AI-powered study assistant app in 24 hours. Team of 4, developed full-stack with React and Python Flask.</p>
+                    <div class="hackathon-tech">
+                        <span>Data Structures</span>
+                        <span>Algorithms</span>
+                        <span>System Design</span>
+                        
+                    </div>
+                    <a href="assets/Yugam-codeathon.jpeg" class="hackathon-cert-link" target="_blank" rel="noopener">
+                        <i class="fas fa-award"></i> View Certificate
+                    </a>
+                </div>
+
+               
+
+                <div class="hackathon-card tilt-card">
+                    <div class="hackathon-header">
+                        <i class="fas fa-trophy hackathon-icon"></i>
+                        <span class="hackathon-badge hackathon-badge-participant">Participant</span>
+                    </div>
+                    <h3 class="hackathon-title">NVIDIA RTX AI PC DAY</h3>
+                    <p class="hackathon-org">Organized by NVIDIA</p>
+                    <p class="hackathon-date"><i class="fas fa-calendar-alt"></i> January 2026</p>
+                    <p class="hackathon-desc">Attended NVIDIA RTX AI PC Day 2026, exploring the latest advancements in AI computing, RTX GPU technologies, and real-world AI applications while gaining exposure to industry innovations and emerging technology trends.</p>
+                    <!-- <div class="hackathon-tech">
+                        <span>React Native</span>
+                        <span>Firebase</span>
+                        <span>Chart.js</span>
+                        <span>Figma</span>
+                    </div> -->
+                    <a href="assets/Nvidia-RTX-certificate.jpeg" class="hackathon-cert-link" target="_blank" rel="noopener">
+                        <i class="fas fa-award"></i> View Certificate
+                    </a>
+                </div>
+
+
+                 <div class="hackathon-card tilt-card">
+                    <div class="hackathon-header">
+                        <i class="fas fa-trophy hackathon-icon"></i>
+                        <!-- <span class="hackathon-badge hackathon-badge-runner">Runner Up</span> -->
+                    </div>
+                    <h3 class="hackathon-title">InnovIT 2025</h3>
+                    <p class="hackathon-org">Organized by Sri Krishna College of Engineering and Technology</p>
+                    <p class="hackathon-date"><i class="fas fa-calendar-alt"></i> September 2025</p>
+                    <p class="hackathon-desc">Collaborated with a team of four to design and prototype an AI-enabled Student Complaint Portal for the college. Contributed to problem-solving, feature planning, and prototype development, gaining hands-on experience in teamwork and AI-driven solution design.</p>
+                    <div class="hackathon-tech">
+                        <span>React</span>
+                        <span>Django</span>
+                        <span>Python</span>
+                    </div>
+                    <a href="assets/InnovIt 2025 certificate.jpeg" class="hackathon-cert-link" target="_blank" rel="noopener">
+                        <i class="fas fa-award"></i> View Certificate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+
+    <!-- <section id="certifications" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certs-grid">
+                <div class="cert-card" data-cert="assets/certificates/cert1.jpg">
+                    <div class="cert-thumb">
+                        <img src="assets/certificates/cert1.jpg" alt="JavaScript Algorithms and Data Structures certificate" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-provider">freeCodeCamp</span>
+                        <span class="cert-category">Web Development</span>
+                        <h3 class="cert-title">JavaScript Algorithms and Data Structures</h3>
+                        <p class="cert-desc">Completed all algorithmic challenges and built 5 projects demonstrating proficiency in JavaScript fundamentals.</p>
+                        <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="cert-card" data-cert="assets/certificates/cert2.jpg">
+                    <div class="cert-thumb">
+                        <img src="assets/certificates/cert2.jpg" alt="Responsive Web Design certificate" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-provider">freeCodeCamp</span>
+                        <span class="cert-category">Web Development</span>
+                        <h3 class="cert-title">Responsive Web Design</h3>
+                        <p class="cert-desc">Built 5 responsive web pages using modern HTML5 and CSS3 techniques including Flexbox and CSS Grid.</p>
+                        <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+
+                <div class="cert-card" data-cert="assets/certificates/cert3.jpg">
+                    <div class="cert-thumb">
+                        <img src="assets/certificates/cert3.jpg" alt="Python for Data Science certificate" loading="lazy">
+                    </div>
+                    <div class="cert-info">
+                        <span class="cert-provider">Coursera</span>
+                        <span class="cert-category">Data Science</span>
+                        <h3 class="cert-title">Python for Data Science and AI</h3>
+                        <p class="cert-desc">Comprehensive course covering Python basics, NumPy, Pandas, and data visualization with Matplotlib.</p>
+                        <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Interests -->
+    <section id="interests" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Interests</h2>
+            <!-- TODO: replace with real interests -->
+            <div class="interests-list">
+                <span class="interest-pill">Open Source Software Development</span>
+                <span class="interest-pill">Competitive Programming</span>
+                <span class="interest-pill">Web Development</span>
+                <span class="interest-pill">Project Collaboration</span>
+                <span class="interest-pill">Data Structures and Algorithms</span>
+                <span class="interest-pill">Software Engineering Research</span>
+                <span class="interest-pill">Tech Writing</span>
+                <span class="interest-pill">Hackathons</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume -->
+    <section id="resume" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Resume</h2>
+            <p class="resume-text">Want to know more about my experience and qualifications? Download my resume for a detailed overview.</p>
+            <a href="assets/divakar.Resume.pdf" class="cta-button resume-btn" download>
+                Download Resume <i class="fas fa-download"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section reveal">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p class="contact-text">I'm always open to new opportunities, collaborations, or just a friendly chat about technology. Feel free to reach out!</p>
+                    <div class="contact-links">
+                        <a href="mailto:divakar.codes@gmail.com" class="contact-link-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>divakar.codes@gmail.com</span>
+                        </a>
+                        <a href="https://linkedin.com/in/divakar-rk" target="_blank" rel="noopener" class="contact-link-item">
+                            <i class="fab fa-linkedin"></i>
+                            <span>linkedin.com/in/divakar-rk</span>
+                        </a>
+                        <a href="https://github.com/div007X" target="_blank" rel="noopener" class="contact-link-item">
+                            <i class="fab fa-github"></i>
+                            <span>github.com/div007X</span>
+                        </a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required placeholder="Your message..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-button submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+                    <div class="form-success" id="form-success">
+                        <i class="fas fa-check-circle"></i> Message sent successfully! I'll get back to you soon.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- <p class="footer-logo">&lt;Diva /&gt;</p> -->
+                <!-- <p class="footer-text">Designed & Built with <span class="footer-heart"><i class="fas fa-heart"></i></span> by Diva</p> -->
+                <p class="footer-copy">&copy; <span id="current-year"></span> Divakar.R Built with passion and code.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">&times;</button>
+        <img class="lightbox-img" id="lightbox-img" alt="Certificate preview">
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+# AI / CLI generated files
+.claude-flow/
+
+# VS Code editor settings
+.vscode/
+
+# Vercel local files
+.vercel/
+
+# Environment variables
+.env
+.env.local
+
+# Windows / macOS system files
+Thumbs.db
+.DS_Store
