@@ -18,15 +18,17 @@ I enjoy transforming ideas into practical software solutions through clean, effi
 ## ✨ Features
 
 * Modern and responsive portfolio design
-* Interactive Three.js 3D background
-* WebGL-based animated node network
-* Custom animated cursor
+* Immersive Three.js neural-network background with glowing nodes, connection lines, and ambient particle dust
+* Click-triggered energy pulses that ripple through the 3D network
+* Custom animated cursor with glow and magnetic hover states
 * Mouse-based interactive visual effects
+* Glassmorphism panels (blurred, translucent cards) across skills, projects, hackathons, and certificates
 * Smooth scrolling navigation
 * Active navigation state based on page position
 * Scroll reveal animations
 * Typewriter text animation
 * Interactive 3D tilt card effects
+* Animated glowing timeline for the Education section
 * Responsive mobile navigation menu
 * Certificate image lightbox
 * Dynamic footer year
@@ -45,8 +47,13 @@ I enjoy transforming ideas into practical software solutions through clean, effi
 ### Graphics and Animation
 
 * Three.js
+  * `THREE.Points` + `BufferGeometry` for the ambient glowing particle field
+  * `THREE.CanvasTexture` for runtime-generated glow sprites (no external image assets)
+  * `THREE.RingGeometry` with additive blending for click-triggered energy pulses
+  * `THREE.FogExp2` for depth
 * WebGL
 * CSS Animations
+* CSS glassmorphism (`backdrop-filter`) for translucent panel effects
 
 ### Web APIs
 
@@ -122,24 +129,33 @@ Provides links to my professional profiles and a contact form interface.
 
 ## 🎨 Interactive Features
 
-### Three.js 3D Background
+### Three.js Neural-Network Background
 
-The website uses Three.js to generate an animated 3D node network.
+The website uses Three.js to generate an animated 3D node network layered with an ambient glowing particle field, set inside exponential fog for depth.
 
-Nearby nodes are dynamically connected using lines, creating an interactive web-style visual background.
+Nearby nodes are dynamically connected using lines, creating an interactive web-style visual background. A slow, independent camera/scene drift keeps the scene feeling alive even when the mouse isn't moving.
 
-The animation reacts to mouse movement and creates dynamic color and movement effects.
+The animation reacts to mouse movement (attracting nearby nodes and tinting them) and creates dynamic color and movement effects.
+
+### Click Energy Pulses
+
+Clicking anywhere spawns an expanding ring inside the 3D scene at the clicked position, briefly brightening nearby nodes as it travels outward — layered on top of the existing 2D cursor ripple effect.
 
 ### Custom Cursor
 
 A custom cursor system provides:
 
-* Animated cursor ring
-* Interactive hover states
+* Animated cursor ring with a soft glow
+* Interactive hover states (links, text fields, cards)
+* A magnetic click-pulse state while the mouse button is held
 * Click ripple effects
 * Smooth cursor tracking
 
 The custom cursor is disabled on touch devices for improved mobile usability.
+
+### Glassmorphism Panels
+
+Skill, project, hackathon, and certificate cards use `backdrop-filter` blur with a subtle top-edge reflection, so they read as translucent panels floating above the neural-network background.
 
 ### Scroll Reveal Animation
 
