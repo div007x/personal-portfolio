@@ -1,5 +1,5 @@
 /* ============================================
-   AURORA WEB PORTFOLIO — All Interactivity
+   NEURAL NETWORK PORTFOLIO — All Interactivity
    ============================================ */
 
 // ============================================
@@ -12,21 +12,63 @@ let isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
 let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let animationId;
 let isTabActive = true;
+let dustParticles;         // ambient glowing dust layer (THREE.Points)
+let pulses = [];           // active click-triggered energy pulses
+const clock = { start: Date.now() };
 
 // Node and line materials
-const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00F5D4 });
-const nodeHoverMaterial = new THREE.MeshBasicMaterial({ color: 0xFF4DB8 });
+const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0xFFB454 });
+const nodeHoverMaterial = new THREE.MeshBasicMaterial({ color: 0xE8484B });
 const lineMaterial = new THREE.LineBasicMaterial({
-    color: 0x00F5D4,
+    color: 0xFFB454,
     transparent: true,
     opacity: 0.3,
 });
+
+function makeGlowTexture() {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, 'rgba(255, 200, 130, 1)');
+    gradient.addColorStop(0.4, 'rgba(255, 180, 84, 0.5)');
+    gradient.addColorStop(1, 'rgba(255, 180, 84, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+    const texture = new THREE.CanvasTexture(canvas);
+    return texture;
+}
+
+function createDustField(count) {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 140;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 100;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 90 - 20;
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+    const material = new THREE.PointsMaterial({
+        size: 0.55,
+        map: makeGlowTexture(),
+        transparent: true,
+        opacity: 0.55,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        color: 0xffb454,
+    });
+
+    return new THREE.Points(geometry, material);
+}
 
 function initThreeScene() {
     if (prefersReducedMotion) return;
 
     // Scene
     scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x050b14, 0.0095);
 
     // Camera
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -40,6 +82,11 @@ function initThreeScene() {
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Ambient glowing dust — thousands of cheap GPU-batched points for atmosphere/depth
+    const dustCount = isTouchDevice ? 350 : 1400;
+    dustParticles = createDustField(dustCount);
+    scene.add(dustParticles);
 
     // Determine node count based on device
     const nodeCount = isTouchDevice ? 40 : 100;
@@ -163,21 +210,110 @@ function animate() {
         const closeness = Math.max(0, 1 - distToMouse / 15);
 
         // Shift line color from teal to magenta near cursor
-        const tealColor = new THREE.Color(0x00F5D4);
-        const magentaColor = new THREE.Color(0xFF4DB8);
+        const tealColor = new THREE.Color(0xFFB454);
+        const magentaColor = new THREE.Color(0xE8484B);
         line.material.color.copy(tealColor).lerp(magentaColor, closeness);
         line.material.opacity = line.userData.baseOpacity + closeness * 0.4;
     }
 
-    // Parallax tilt based on mouse (skip on touch)
+    // Parallax tilt based on mouse (skip on touch), plus a slow autonomous
+    // drift so the scene never feels static even when the mouse is still
+    const idleT = (Date.now() - clock.start) * 0.00006;
+    const idleRotX = Math.sin(idleT) * 0.05;
+    const idleRotY = Math.cos(idleT * 0.7) * 0.06;
+
     if (!isTouchDevice) {
-        const targetRotX = (mouseY / window.innerHeight - 0.5) * 0.15;
-        const targetRotY = (mouseX / window.innerWidth - 0.5) * 0.15;
+        const targetRotX = (mouseY / window.innerHeight - 0.5) * 0.15 + idleRotX;
+        const targetRotY = (mouseX / window.innerWidth - 0.5) * 0.15 + idleRotY;
         scene.rotation.x += (targetRotX - scene.rotation.x) * 0.03;
         scene.rotation.y += (targetRotY - scene.rotation.y) * 0.03;
+    } else {
+        scene.rotation.x += (idleRotX - scene.rotation.x) * 0.02;
+        scene.rotation.y += (idleRotY - scene.rotation.y) * 0.02;
     }
 
+    // Ambient dust drifts very slowly on its own
+    if (dustParticles) {
+        dustParticles.rotation.y += 0.00006;
+        dustParticles.rotation.x += 0.00002;
+    }
+
+    updatePulses();
+
     renderer.render(scene, camera);
+}
+
+// ============================================
+// 1b. CLICK ENERGY PULSES
+// ============================================
+
+function spawnEnergyPulse(clientX, clientY) {
+    if (!scene || !camera || prefersReducedMotion) return;
+
+    // Unproject the click into the same depth plane the nodes live on
+    const vec = new THREE.Vector3(
+        (clientX / window.innerWidth) * 2 - 1,
+        -(clientY / window.innerHeight) * 2 + 1,
+        0.5
+    );
+    vec.unproject(camera);
+    const dir = vec.sub(camera.position).normalize();
+    const origin = camera.position.clone().add(dir.multiplyScalar(45));
+
+    const geometry = new THREE.RingGeometry(0.1, 0.4, 32);
+    const material = new THREE.MeshBasicMaterial({
+        color: 0xffb454,
+        transparent: true,
+        opacity: 0.8,
+        side: THREE.DoubleSide,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+    });
+    const ring = new THREE.Mesh(geometry, material);
+    ring.position.copy(origin);
+    ring.lookAt(camera.position);
+    scene.add(ring);
+
+    pulses.push({ mesh: ring, origin, spawnedAt: Date.now(), life: 900 });
+
+    // Cap concurrent pulses so rapid clicking can't pile up work
+    if (pulses.length > 6) {
+        const old = pulses.shift();
+        scene.remove(old.mesh);
+        old.mesh.geometry.dispose();
+        old.mesh.material.dispose();
+    }
+}
+
+function updatePulses() {
+    if (pulses.length === 0) return;
+    const now = Date.now();
+
+    for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        const t = Math.min((now - p.spawnedAt) / p.life, 1);
+
+        const scale = 1 + t * 22;
+        p.mesh.scale.setScalar(scale);
+        p.mesh.material.opacity = 0.8 * (1 - t);
+
+        // Briefly brighten nearby hub nodes/lines as the pulse passes them
+        const reach = t * 22 * 0.4 + 2;
+        for (const node of nodes) {
+            const d = node.position.distanceTo(p.origin);
+            if (Math.abs(d - reach) < 3) {
+                node.material.color.lerp(new THREE.Color(0xffe3b0), 0.5);
+                node.scale.setScalar(1.6);
+            }
+        }
+
+        if (t >= 1) {
+            scene.remove(p.mesh);
+            p.mesh.geometry.dispose();
+            p.mesh.material.dispose();
+            pulses.splice(i, 1);
+        }
+    }
 }
 
 // Pause on tab hidden
@@ -246,14 +382,19 @@ function initCursor() {
         }
     });
 
-    // Click ripple
+    // Click ripple (2D cursor effect + 3D energy pulse through the network)
     document.addEventListener('click', (e) => {
         cursorRipple.classList.remove('active');
         void cursorRipple.offsetWidth; // reflow
         cursorRipple.style.left = e.clientX + 'px';
         cursorRipple.style.top = e.clientY + 'px';
         cursorRipple.classList.add('active');
+
+        spawnEnergyPulse(e.clientX, e.clientY);
     });
+
+    document.addEventListener('mousedown', () => cursorRing.classList.add('is-clicking'));
+    document.addEventListener('mouseup', () => cursorRing.classList.remove('is-clicking'));
 }
 
 // ============================================
